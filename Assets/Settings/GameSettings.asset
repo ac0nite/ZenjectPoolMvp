@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e7d6175138ec7f4bbb82a7499be2fa8, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  ObjectDetails:
+  - Name: Cube
+    Preview: {fileID: 21300000, guid: 12bcd4a62f6c53548997210dfd006235, type: 3}
+    Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - Name: Capsule
+    Preview: {fileID: 21300000, guid: df9d48421b2b1524297a6436c27cadeb, type: 3}
+    Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  - Name: Cyllindr
+    Preview: {fileID: 21300000, guid: 28cd2f66564e5dd49805b71e48ea725b, type: 3}
+    Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - Name: Sphere
+    Preview: {fileID: 21300000, guid: fdecec1ba6eec9341afdf38beedf16f1, type: 3}
+    Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  ButtonPrefab: {fileID: 101365432029030658, guid: fd90a1909a4af42438924d31cf1ee74f,
+    type: 3}
+  ViewObjectPrefab: {fileID: 7274708719250673331, guid: c33e7475748ea2f4f9ae72db388da554,
+    type: 3}
+  StartPosition: {x: -12, y: -0.45, z: 0}
+  SpeedViewObject: 5
+  PointNewSpawnerViewObject: -6
