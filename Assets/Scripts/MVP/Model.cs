@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Model
 {
     public int Count { get; private set; }
+    public event Action<int> EventChangeCount; 
 
     public Model()
     {
@@ -14,5 +16,6 @@ public class Model
     public void Change(int value)
     {
         Count += value;
+        EventChangeCount?.Invoke(Count);
     }
 }

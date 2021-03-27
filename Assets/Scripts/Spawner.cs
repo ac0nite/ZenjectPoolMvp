@@ -13,7 +13,7 @@ namespace DefaultNamespace
         private ViewObject.Factory _factoryViewObject;
         
         private string _nextSpawnName = null;
-        private int _count = 0;
+        //private int _count = 0;
 
         public Spawner(GameSettings settings, SignalBus signalBus, ViewObject.Factory factory)
         {

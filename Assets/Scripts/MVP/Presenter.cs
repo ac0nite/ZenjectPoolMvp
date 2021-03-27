@@ -32,7 +32,6 @@ public class Presenter
         foreach (GameSettings.ContainerObjectDetails param in _settings.ObjectDetails)
         {
             var button  = _factoryButton.Create(param, _gameController.Content.transform);
-            button.UpdateCount();
             _buttons.Add(button);
         }
     }
@@ -41,14 +40,12 @@ public class Presenter
     {
         var button = _buttons.Find(b => b.Name == arg.Name);
         button.ModelButton.Change(+1);
-        button.UpdateCount();
     }
 
     private void DespawnViewObject(DespawnedViewObjectSignal arg)
     {
         var button = _buttons.Find(b => b.Name == arg.Name);
         button.ModelButton.Change(-1);
-        button.UpdateCount();
     }
     public class Factory : PlaceholderFactory<Presenter>
     {

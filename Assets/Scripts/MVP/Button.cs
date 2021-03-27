@@ -38,6 +38,8 @@ public class Button : MonoBehaviour
         _togle.group = parent.GetComponent<ToggleGroup>();
         
         ModelButton = new Model();
+        ModelButton.EventChangeCount += OnChangeCount;
+        OnChangeCount(ModelButton.Count);
     }
 
     public void OnTogle()
@@ -48,9 +50,14 @@ public class Button : MonoBehaviour
         }
     }
 
-    public void UpdateCount()
+    private void OnChangeCount(int newValue)
     {
         _label.text = $"x{ModelButton.Count}";
+    }
+
+    private void OnDestroy()
+    {
+        ModelButton.EventChangeCount -= OnChangeCount;
     }
 
     public class Factory : PlaceholderFactory<GameSettings.ContainerObjectDetails, Transform, Button>
