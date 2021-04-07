@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1655111536
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 933e2cc44ee4f8942394b12d9ce6bc4f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4a49739d07d770f03c8d5104a428cfe0
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Art/capsule.png
+- Assets/Art/cyllindr.png
+- Assets/Art/cube.png
+- Assets/Art/sphere.png
+- Assets/Art/Music/din.wav
+Dependencies: []

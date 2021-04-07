@@ -24,7 +24,7 @@ MonoBehaviour:
     Preview: {fileID: 21300000, guid: df9d48421b2b1524297a6436c27cadeb, type: 3}
   _containerMeshObjects:
   - Name: cubeMesh
-    Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
   - Name: sphereMesh
     Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   - Name: cylinderMesh
