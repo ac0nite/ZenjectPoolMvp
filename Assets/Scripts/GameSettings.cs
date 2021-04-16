@@ -12,6 +12,7 @@ public class GameSettings : ScriptableObject
         public string Name;
         public Sprite Preview;
         public Mesh Mesh;
+        public Color Color;
     }
     
     [Serializable]
@@ -45,7 +46,10 @@ public class GameSettings : ScriptableObject
     public Vector3 StartPosition;
     public float SpeedViewObject;
     public float PointNewSpawnerViewObject;
+
+    [Header("Сетевые ресурсы")]
     public string URL;
+    public string URLBundlePrefabs;
 
     //необходимо вызывать в самом начале запуска
     public void InitDictionaryObjectDetails()

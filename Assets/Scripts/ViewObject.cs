@@ -15,7 +15,13 @@ public class ViewObject : MonoBehaviour, IPoolable<GameSettings.ContainerObjectD
     private bool _isCenter = false;
 
     private string _name = null;
-    
+    [SerializeField] private MeshRenderer _renderer = null;
+
+    private void Start()
+    {
+        //_renderer = GetComponentInChildren<MeshRenderer>();
+    }
+
     private void Update()
     {
         transform.Translate(Vector3.right * (_settings.SpeedViewObject * Time.deltaTime));
@@ -44,7 +50,9 @@ public class ViewObject : MonoBehaviour, IPoolable<GameSettings.ContainerObjectD
         _meshFilter.mesh = p1.Mesh;
         _name = p1.Name;
         _pool = p2;
-        
+
+        _renderer.material.color = p1.Color;
+
         transform.position = _settings.StartPosition;
         
         _signalBus.Fire(new CreateViewObjectSignal() {Name = _name});

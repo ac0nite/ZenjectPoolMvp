@@ -17,24 +17,19 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject _content;
     public GameObject Content { get; private set; }
 
+    [Inject] private FooTest.Factory _factoryFoo;
+    [SerializeField] private GameObject _testPrefab;
+
     void Start()
     {
         Content = _content;
         _settings.InitDictionaryObjectDetails();
+
+        _factoryFoo.Create(_testPrefab, 10);
         
-        //_networkManager.EventResponse += OnResponse;
-        //_networkManager.Get(_currentType = NetworkManager.TypeRequest.GET_INIT_DATA);
-        //_networkManager.Post(_currentType = NetworkManager.TypeRequest.ADD_INIT_DATA);
-
-        //var presenter = _factoryPresenter.Create();
-        //presenter.CreateButtons();
-
-        // foreach (GameSettings.ContainerObjectDetails objectDetail in _settings.ObjectDetails)
-        // {
-        //     _factoryButton.Create(objectDetail, _content.transform);
-        // }
 
         StartCoroutine(NetworkManager.LoadTextByUrl(_settings.URL, LoadData, Error));
+        StartCoroutine(NetworkManager.LoadBundle(_settings.URLBundlePrefabs, LoadBundle, Error));
     }
 
     private void LoadData(string jsonString)
@@ -51,16 +46,40 @@ public class GameController : MonoBehaviour
             }
             else
             {
+                if (!ColorUtility.TryParseHtmlString(data.colorCode, out Color color))
+                {
+                    Debug.LogError($"Invalid value color: {data.colorCode}");
+                    continue;
+                }
+
                 _settings.ObjectDetails.Add(new GameSettings.ContainerObjectDetails()
                 {
                     Name = data.name,
                     Mesh = _settings.ContainerMeshObjects[data.meshName],
-                    Preview = _settings.ContainerPreviewSprites[data.previewName]
+                    Preview = _settings.ContainerPreviewSprites[data.previewName],
+                    Color = color
                 });
             }
         }
 
         //Debug.Log(_settings.ObjectDetails.Count);
+
+        //var presenter = _factoryPresenter.Create();
+        //presenter.CreateButtons();
+    }
+
+    private void LoadBundle(AssetBundle bundle)
+    {
+        var viewGameObject = bundle.LoadAsset<GameObject>("ViewObject");
+        var buttonPrefab = bundle.LoadAsset<GameObject>("ButtonPrefab");
+
+        //Debug.Log($"LoadBundle: {viewGameObject} {buttonPrefab}");
+
+        _settings.ViewObjectPrefab = bundle.LoadAsset<GameObject>("ViewObject");
+        _settings.ButtonPrefab = bundle.LoadAsset<GameObject>("ButtonPrefab");
+
+        bundle.Unload(false);
+
         var presenter = _factoryPresenter.Create();
         presenter.CreateButtons();
     }
@@ -70,46 +89,13 @@ public class GameController : MonoBehaviour
         Debug.LogError("Error load data");
     }
 
-    //private void OnResponse(NetworkManager.TypeRequest type)
-    //{
-    //    if (_currentType != type)
-    //        return;
-        
-    //    if (_networkManager.Request.isNetworkError)
-    //    {
-    //        Debug.LogWarning($"{_networkManager.Request.error}. Code:{_networkManager.Request.isHttpError} ");
-    //    }
-    //    else
-    //    {
-    //        var arr = _networkManager.GetResponseDataInit();
-    //        _settings.ObjectDetails.Clear();
-    //        foreach (Data data in arr)
-    //        {
-    //            if (!_settings.ContainerMeshObjects.ContainsKey(data.meshName) ||
-    //                !_settings.ContainerPreviewSprites.ContainsKey(data.previewName))
-    //            {
-    //                Debug.LogError($"Not found key: {data.meshName} or {data.previewName} in name: {data.name}");
-    //            }
-    //            else
-    //            {
-    //                _settings.ObjectDetails.Add(new GameSettings.ContainerObjectDetails()
-    //                {
-    //                    Name = data.name,
-    //                    Mesh = _settings.ContainerMeshObjects[data.meshName],
-    //                    Preview = _settings.ContainerPreviewSprites[data.previewName]
-    //                });   
-    //            }
-    //        }
-            
-    //        //Debug.Log(_settings.ObjectDetails.Count);
-    //        var presenter = _factoryPresenter.Create();
-    //        presenter.CreateButtons();
-    //    }
-    //}
+    private void Error(string error)
+    {
+        Debug.LogError(error);
+    }
 
     private void OnDestroy()
     {
-        //_networkManager.EventResponse -= OnResponse;
         _settings.ObjectDetails.Clear();
     }
 }

@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 2275985995
+CRC: 2714911043
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: test/buttons
+      Dependencies: {}
+    Info_1:
+      Name: test/prefabs
       Dependencies: {}

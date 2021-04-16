@@ -33,6 +33,21 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    public static IEnumerator LoadBundle(string url, Action<AssetBundle> successCallback, Action<string> errorCallback)
+    {
+        var request = UnityEngine.Networking.UnityWebRequestAssetBundle.GetAssetBundle(url);
+        yield return request.SendWebRequest();
+        if (request.isNetworkError || request.isHttpError)
+        {
+            errorCallback?.Invoke(request.error);
+        }
+        else
+        {
+            AssetBundle bundle = UnityEngine.Networking.DownloadHandlerAssetBundle.GetContent(request);
+            successCallback?.Invoke(bundle);
+        }
+    }
+
     public void Post()
     {
         StartCoroutine(SendPostDataInit(_settings.URL));

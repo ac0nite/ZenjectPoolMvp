@@ -28,9 +28,16 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesTo<Spawner>().AsSingle();
         
         Container.BindFactory<Presenter, Presenter.Factory>().AsSingle();
+
+
+        //Container.BindFactory<Object, int, FooTest, FooTest.Factory>().FromFactory<FooTestFactory>();
+
+        Container.BindFactory<Object, int, FooTest, FooTest.Factory>().FromPoolableMemoryPool<Object, int, FooTest, FooTestPool>(x=>x.WithInitialSize(10).FromFactory<FooTestFactory>());
+        
     }
-    
-    public class ViewObjectPool : MonoPoolableMemoryPool<GameSettings.ContainerObjectDetails, IMemoryPool, ViewObject>
-    {
-    }
+
+    public class ViewObjectPool : MonoPoolableMemoryPool<GameSettings.ContainerObjectDetails, IMemoryPool, ViewObject> { }
+
+    //IPoolable<GameSettings.ContainerObjectDetails, IMemoryPool>
+    public class FooTestPool : MonoPoolableMemoryPool<Object, int, IMemoryPool, FooTest> { }
 }
