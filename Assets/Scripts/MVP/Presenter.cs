@@ -31,8 +31,10 @@ public class Presenter
     {
         foreach (GameSettings.ContainerObjectDetails param in _settings.ObjectDetails)
         {
-            var button  = _factoryButton.Create(param, _gameController.Content.transform);
+            var button  = _factoryButton.Create(_settings.ButtonPrefab, param, _gameController.Content.transform);
             _buttons.Add(button);
+
+            //Debug.Log($"{button}");
         }
     }
 

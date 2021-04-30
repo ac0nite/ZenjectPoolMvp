@@ -10,16 +10,18 @@ namespace DefaultNamespace
     {
         private GameSettings _settings;
         private SignalBus _signalBus;
-        private ViewObject.Factory _factoryViewObject;
+        //private ViewObject.Factory _factoryViewObject;
+        private PoolManager _pool;
         
         private string _nextSpawnName = null;
         //private int _count = 0;
 
-        public Spawner(GameSettings settings, SignalBus signalBus, ViewObject.Factory factory)
+        public Spawner(GameSettings settings, SignalBus signalBus, PoolManager pool)
         {
             _settings = settings;
             _signalBus = signalBus;
-            _factoryViewObject = factory;
+            //_factoryViewObject = factory;
+            _pool = pool;
             
             _signalBus.Subscribe<ChangeTypeViewObjectSignal>(NewViewObject);
             _signalBus.Subscribe<ViewObjectInCenterSignal>(NextSpawn);
@@ -50,8 +52,8 @@ namespace DefaultNamespace
 
         private void NextSpawn()
         {
-            var obj = _settings.ObjectDetails.Find(x => x.Name == _nextSpawnName);
-            _factoryViewObject.Create(obj);
+            var detail = _settings.ObjectDetails.Find(x => x.Name == _nextSpawnName);
+            _pool.GetObject("ViewObject").GetComponent<ViewObject>().Init(detail);
         }
     }
 }

@@ -3,28 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class FooTest : MonoBehaviour, IPoolable<Object, int, IMemoryPool>
+public class FooTest : MonoBehaviour
 {
-    [SerializeField] private int _param = 0;
-    private IMemoryPool _pool;
-
-    public void OnDespawned()
-    {
-        _pool = null;
-        _param = 0;
-    }
-
-    public void OnSpawned(Object p1, int p2, IMemoryPool p3)
-    {
-        _param = p2;
-        _pool = p3;
-    }
-
-    public class Factory : PlaceholderFactory<Object, int, FooTest>
+    public class Factory : PlaceholderFactory<GameObject, FooTest>
     { }
 }
 
-public class FooTestFactory : IFactory<Object, int, FooTest>, IFactory<FooTest>
+public class FooTestFactory : IFactory<GameObject, FooTest>
 {
     private readonly DiContainer _container;
 
@@ -32,14 +17,9 @@ public class FooTestFactory : IFactory<Object, int, FooTest>, IFactory<FooTest>
     {
         _container = container;
     }
-    public FooTest Create(Object prefab, int param)
-    {
-        Debug.Log($"call Create class FooTestFactory");
-        return _container.InstantiatePrefabForComponent<FooTest>(prefab);
-    }
 
-    public FooTest Create()
+    public FooTest Create(GameObject prefab)
     {
-        return _container.Instantiate<FooTest>();
+        return _container.InstantiatePrefabForComponent<FooTest>(prefab);
     }
 }
