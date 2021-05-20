@@ -94,9 +94,13 @@ public class ViewObject : MonoBehaviour, IPoolObject
         {
             if (_pool == null)
             {
-                Debug.LogWarning("Link to Pull is null!");
+                //var s = _diContainer.Resolve<PoolManager>();
+                _pool = _diContainer.Resolve<PoolManager>();
+
+                Debug.LogWarning($"Link to Pull is null! _pool:{_pool}");
             }
-            else
+            //else
+
             {
                 _pool.Despawn(this.gameObject);
             }
